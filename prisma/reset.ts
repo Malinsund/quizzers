@@ -3,6 +3,10 @@ import { prisma } from './db';
 
 
 async function main() {
+    // NEVER ALLOW THIS OUTSIDE THE TEST ENVIROMENT!!!
+    if (process.env.NODE_ENV !== "test") return;
+
+
     await prisma.post.deleteMany({});
     // ta bort från alla tabeller
 }

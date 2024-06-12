@@ -11,8 +11,10 @@
     "seed": "prisma db seed",
     "reset": "tsx prisma/reset.ts",
     "studio": "prisma studio",
-    "test": "cross-env NODE_ENV=test npm run dev & cypress open --e2e -b chrome",
-    "test:push": "cross-env NODE_ENV=test prisma db push"
+    "cy:dev": "next dev --port 3100",
+    "cy:open": "dotenv -e .env.test -- cypress open --e2e -b chrome",
+    "test": "cross-env NODE_ENV=test start-server-and-test cy:dev http://localhost:3100 cy:open",
+    "test:push": "dotenv -e .env.test -- prisma db push"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -24,6 +26,7 @@
     "@prisma/client": "^5.15.0",
     "@prisma/extension-accelerate": "^1.1.0",
     "cross-env": "^7.0.3",
+    "dotenv-cli": "^7.4.2",
     "next": "14.2.3",
     "next-auth": "^4.24.7",
     "react": "^18",
@@ -42,6 +45,7 @@
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
     "prisma": "^5.15.0",
+    "start-server-and-test": "^2.0.4",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.15.2",
     "typescript": "^5"
