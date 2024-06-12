@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { SessionProvider } from "next-auth/react";
 import { Roboto } from "next/font/google";
 import GlobalStyle from "./GlobalStyles";
 import Header from "./Header/page";
@@ -19,13 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SessionProvider>
+        
 
        <GlobalStyle/>
         <Header />
         {children}
 
-        </SessionProvider>
+        
         </body>
     </html>
   );
