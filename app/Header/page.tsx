@@ -9,7 +9,7 @@ const HeaderContainer = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background: #c9770a;
+  background: black;
   color: #fff;
   position: relative;
 `;
@@ -20,13 +20,15 @@ const MenuToggle = styled.div`
   
 `;
 
+/* #a66108 */
+
 const SideMenu = styled.nav<{ open: boolean }>`
   height: 100%;
   width: ${({ open }) => (open ? "250px" : "0")};
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #a66108;
+  background-color: black;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 60px;
