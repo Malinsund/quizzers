@@ -3,6 +3,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import GlobalStyle from "../GlobalStyles";
+import SignInButton from "./components/signInButton";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -112,6 +113,7 @@ export default function Header() {
           </MenuItem>
           <MenuItem>
             <StyledLink href="/posts">Login</StyledLink>
+            <SignInButton />
           </MenuItem>
           {/* Add more links as needed */}
         </MenuList>
