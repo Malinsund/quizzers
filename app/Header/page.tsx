@@ -102,19 +102,15 @@ export default function Header() {
         <CloseButton onClick={toggleMenu}>&times;</CloseButton>
         <MenuList>
           <MenuItem>
-            <StyledLink href="/">Home</StyledLink>
+            <StyledLink href="/">Hem</StyledLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink href="/posts">Add new event</StyledLink>
+            <StyledLink href="/post-form">Lägg till nytt quiz</StyledLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink href="/posts">All events</StyledLink>
+            <StyledLink href="/">Alla quiz</StyledLink>
           </MenuItem>
-          <MenuItem>
-            <StyledLink href="/posts">Login</StyledLink>
-           {/*  <SignInButton /> */}
-          </MenuItem>
-          {/* Add more links as needed */}
+          
         </MenuList>
       </SideMenu>
     </>

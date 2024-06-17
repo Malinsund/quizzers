@@ -17,5 +17,8 @@ model Post {
   id        Int     @id @default(autoincrement())
   title     String
   content   String?
+  dayOfWeek String?
+  time      String?
+  pubName   String?
   published Boolean @default(false)
 }

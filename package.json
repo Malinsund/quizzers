@@ -9,7 +9,6 @@
     "lint": "next lint",
     "push": "prisma db push",
     "seed": "prisma db seed",
-    "reset": "tsx prisma/reset.ts",
     "studio": "prisma studio",
     "cy:dev": "next dev --port 3100",
     "cy:open": "dotenv -e .env.test -- cypress open --e2e -b chrome",
