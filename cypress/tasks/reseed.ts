@@ -1,4 +1,4 @@
-import { prisma } from "@/prisma/db";
+import { prisma } from "../../prisma/db";
 
 export async function reseed() {
     // NEVER ALLOW THIS OUTSIDE THE TEST ENVIROMENT!!!

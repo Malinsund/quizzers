@@ -5,6 +5,9 @@ describe('template spec', () => {
   })
 })
 
+// 1. En användare besöker sidan och får veckodagarna presenterade, väljer onsdag och start den första quizen för onsdagen. Fösta frågan visas för användaren och....
+// 2. En användare besöker sidan och klickar på "lägg till quiz"-knappen och kommer då till skapa sidan där ett formulär visas. Användaren fyller sedan i....
+
 describe('The Home Page', () => {
   it('successfully loads', () => {
     cy.visit('/');
@@ -16,7 +19,7 @@ describe('The Home Page', () => {
 
   });
   it('contains a header', () => {
-    cy.get('header').contains("Quizzers").should("be.visiple");
+    cy.get('header').contains("Quizzers").should("be.visible");
   });
 
   it('contains a main section', () => {
@@ -35,6 +38,7 @@ describe('PostPage', () => {
     cy.contains('Lägg till quiz').click();
 
     // Fyll i formuläret
+    // cy.url("/add-new")
     cy.get('#pubName').type('The Pub');
     cy.get('#title').type('Världens bästa quiz');
     cy.get('#content').type('Ett fantastiskt allmänquiz');
@@ -46,8 +50,8 @@ describe('PostPage', () => {
     cy.contains('Ditt quiz har bivit tillagt').should('be.visible');
 
     // Gå tillbaka till Posts-sidan och kolla så det finns där
-    cy.visit('/posts');
-    cy.contains('Världens bbästa quiz').should('be.visible');
+    cy.visit('/');
+    cy.contains('Världens bästa quiz').should('be.visible');
 
 
     cy.contains('Måndag').click();

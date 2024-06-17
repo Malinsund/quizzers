@@ -1,10 +1,10 @@
 "use client"
 import React, { FormEvent, useState } from 'react';
-import PostSchema from '../posts/validations/postSchema';
+import PostSchema from './validations/postSchema';
 
 export default function PostForm() {
   const [formData, setFormData] = useState({
-    id: 0, // Lägg till ett initialt värde för id, om det behövs
+    id: 0, 
     title: '',
     content: '',
     dayOfWeek: '',

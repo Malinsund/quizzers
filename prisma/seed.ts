@@ -6,12 +6,12 @@ async function main() {
         update: {},
         create: {
             id: 1,
-            title: "First Post",
-            content: "This is the first post content.",
-            dayOfWeek: "Monday",
-            pubName: "Example Pub",
-            time: "19:00",
-            published: false
+            title: "Disney Quiz",
+            content: "Världens klurigaste DisneyQuiz",
+            dayOfWeek: "Måndag",
+            pubName: "Le pub",
+            time: "2023-06-24T18:30",
+            published: true
         }
     });
 }
