@@ -1,5 +1,6 @@
 "use client"
 import React, { FormEvent, useState } from 'react';
+import { FormDiv, FormInput, FormSelect, FormSubmitButton, FormTextArea, PostFormContainer } from './form.styles';
 import PostSchema from './validations/postSchema';
 
 export default function PostForm() {
@@ -16,10 +17,9 @@ export default function PostForm() {
     e.preventDefault();
 
     try {
-      // Validera formulärdata mot Zod-schema
       const validatedData = PostSchema.parse(formData);
 
-      const res = await fetch('/api/posts', {
+      const res = await fetch('../api/Endpoints/post', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,9 +45,12 @@ export default function PostForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <FormDiv>
+
+
+    <PostFormContainer onSubmit={handleSubmit}>
       <label htmlFor="pubName">Pub:</label>
-      <input
+      <FormInput
         type="text"
         id="pubName"
         name="pubName"
@@ -57,7 +60,7 @@ export default function PostForm() {
       />
       
       <label htmlFor="title">Titel:</label>
-      <input
+      <FormInput
         type="text"
         id="title"
         name="title"
@@ -67,16 +70,17 @@ export default function PostForm() {
       />
 
       <label htmlFor="content">Beskrivning:</label>
-      <textarea
+      <FormTextArea
         id="content"
         name="content"
+        rows={5}
         value={formData.content}
         onChange={handleChange}
         required
       />
 
       <label htmlFor="day">Dag:</label>
-      <select
+      <FormSelect
         id="day"
         name="dayOfWeek"
         value={formData.dayOfWeek}
@@ -91,10 +95,10 @@ export default function PostForm() {
         <option value="Friday">Fredag</option>
         <option value="Saturday">Lördag</option>
         <option value="Sunday">Söndag</option>
-      </select>
+      </FormSelect>
 
       <label htmlFor="time">Tid:</label>
-      <input
+      <FormInput
         type="datetime-local"
         id="time"
         name="time"
@@ -103,7 +107,8 @@ export default function PostForm() {
         required
       />
 
-      <button type="submit">Lägg till</button>
-    </form>
+      <FormSubmitButton type="submit">Lägg till</FormSubmitButton>
+    </PostFormContainer>
+    </FormDiv>
   );
 }

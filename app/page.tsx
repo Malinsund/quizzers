@@ -1,7 +1,7 @@
 import { prisma } from '@/prisma/db';
 import Link from 'next/link';
 import { z } from 'zod';
-import { Button, OuterDiv, PostDiv, StyledWeekdayLink, WeekDayContainer } from './page.styles';
+import { Button, ButtonDiv, DropdownButton, DropdownContainer, DropdownOption, DropdownSelect, HomeTitle, OuterDiv, PostContent, PostDiv, PostPubName, PostTime, PostTitle, StyledWeekdayLink, WeekDayContainer } from './page.styles';
 
 
 const PostSchema = z.object({
@@ -19,51 +19,76 @@ export default async function HomePage({ searchParams }: any) {
   console.log(searchParams.veckodag)
   const posts = await prisma.post.findMany({ where: { dayOfWeek: searchParams.veckodag } });
 
+  const formatDateTime = (dateTimeString: string | null) => {
+    if (!dateTimeString) return '';
+    return dateTimeString.replace('T', ' ');
+  };
+
+
   return (
     <div>
-      <h1>Hitta ditt Quiz idag!</h1>
+      <HomeTitle>Hitta ditt Quiz idag!</HomeTitle>
 
       <main>
         <WeekDayContainer>
-          <Link href="/?veckodag=Måndag">
+          <Link href="/?veckodag=Måndag" style={{textDecoration: "none" }}>
             <StyledWeekdayLink>Måndag</StyledWeekdayLink>
           </Link>
-          <Link href="/?veckodag=Tisdag">
+          <Link href="/?veckodag=Tisdag"style={{textDecoration: "none" }}>
             <StyledWeekdayLink>Tisdag</StyledWeekdayLink>
           </Link>
-          <Link href="/?veckodag=Onsdag">
+          <Link href="/?veckodag=Onsdag"style={{textDecoration: "none" }}>
             <StyledWeekdayLink>Onsdag</StyledWeekdayLink>
           </Link>
-          <Link href="/?veckodag=Torsdag">
+          <Link href="/?veckodag=Torsdag"style={{textDecoration: "none" }}>
             <StyledWeekdayLink>Torsdag</StyledWeekdayLink>
           </Link>
-          <Link href="/?veckodag=Fredag">
+          <Link href="/?veckodag=Fredag" style={{textDecoration: "none" }}>
             <StyledWeekdayLink>Fredag</StyledWeekdayLink>
           </Link>
-          <Link href="/?veckodag=Lördag">
+          <Link href="/?veckodag=Lördag" style={{textDecoration: "none" }}>
             <StyledWeekdayLink>Lördag</StyledWeekdayLink>
           </Link>
-          <Link href="/?veckodag=Söndag">
+          <Link href="/?veckodag=Söndag" style={{textDecoration: "none" }}>
             <StyledWeekdayLink>Söndag</StyledWeekdayLink>
           </Link>
         </WeekDayContainer>
 
+        <DropdownContainer>
+          <form method="get" action="/">
+            
+            <DropdownSelect  name="veckodag">
+              <DropdownOption value="">Välj en dag</DropdownOption>
+              <DropdownOption value="Måndag">Måndag</DropdownOption>
+              <DropdownOption value="Tisdag">Tisdag</DropdownOption>
+              <DropdownOption value="Onsdag">Onsdag</DropdownOption>
+              <DropdownOption value="Torsdag">Torsdag</DropdownOption>
+              <DropdownOption value="Fredag">Fredag</DropdownOption>
+              <DropdownOption value="Lördag">Lördag</DropdownOption>
+              <DropdownOption value="Söndag">Söndag</DropdownOption>
+            </DropdownSelect>
+            <DropdownButton type="submit">Filtrera</DropdownButton>
+          </form>
+        </DropdownContainer>
+
         <OuterDiv>
           {posts.map((post) => (
             <PostDiv key={post.id}>
-              <h2>{post.title}</h2>
-              <p>{post.content}</p>
-              <p>Pub: {post.pubName}</p>
-              <p>Dag: {post.dayOfWeek}</p>
-              <p>Tid: {post.time}</p>
+              <PostTitle>{post.title}</PostTitle>
+              <PostPubName>På: {post.pubName}</PostPubName>
+              <PostContent>{post.content}</PostContent>
+              
+              <PostTime>Datum: {post.dayOfWeek} - {formatDateTime(post.time)}</PostTime>
             </PostDiv>
           ))}
         </OuterDiv>
 
-        
+        <ButtonDiv>
         <Link href="/post-form">
           <Button>Lägg till quiz</Button>
         </Link>
+
+        </ButtonDiv>
       </main>
     </div>
   );

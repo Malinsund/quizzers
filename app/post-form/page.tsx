@@ -1,10 +1,13 @@
 import PostForm from './PostForm';
+import { FormTitle, FormTitleDiv, TitleLineOne, TitleLineTwo } from './form.styles';
 
 export default function FormPage() {
   return (
-    <div>
-      <h1>Lägg till qiuz</h1>
+    <FormTitleDiv>
+      <FormTitle>Lägg till quiz</FormTitle>
+      <TitleLineOne/>
+      <TitleLineTwo/>
       <PostForm />
-    </div>
+    </FormTitleDiv>
   );
 }

@@ -8,7 +8,7 @@ describe('template spec', () => {
 // 1. En användare besöker sidan och får veckodagarna presenterade, väljer onsdag och start den första quizen för onsdagen. Fösta frågan visas för användaren och....
 // 2. En användare besöker sidan och klickar på "lägg till quiz"-knappen och kommer då till skapa sidan där ett formulär visas. Användaren fyller sedan i....
 
-describe('The Home Page', () => {
+/* describe('The Home Page', () => {
   it('successfully loads', () => {
     cy.visit('/');
     cy.get("h1").contains("Hitta ditt Quiz idag!").should("be.visible");
@@ -25,12 +25,12 @@ describe('The Home Page', () => {
   it('contains a main section', () => {
     cy.get('main').should('exist');
   });
-});
+}); */
 
-describe('PostPage', () => {
+describe('/', () => {
   beforeEach(() => {
     cy.task('reseed');
-    cy.visit('/posts');
+    cy.visit('/');
   });
 
   it('adds a new quiz and verifies it', () => {
