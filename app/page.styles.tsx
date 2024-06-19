@@ -9,13 +9,15 @@ text-align: center;
 export const OuterDiv = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
   
-`;
+  `;
 
 export const PostDiv = styled.div`
   padding: 40px;
   border:solid;
   border-radius: 20px;
+  margin-bottom: 5px;
 `;
 export const PostTitle = styled.h2 `
 text-decoration: underline;

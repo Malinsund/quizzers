@@ -1,7 +1,7 @@
 import { prisma } from '@/prisma/db';
 import Link from 'next/link';
-import { z } from 'zod';
 import { Button, ButtonDiv, DropdownButton, DropdownContainer, DropdownOption, DropdownSelect, HomeTitle, OuterDiv, PostContent, PostDiv, PostPubName, PostTime, PostTitle, StyledWeekdayLink, WeekDayContainer } from './page.styles';
+import { z } from 'zod';
 
 
 const PostSchema = z.object({
@@ -26,10 +26,10 @@ export default async function HomePage({ searchParams }: any) {
 
 
   return (
+      <main>
     <div>
       <HomeTitle>Hitta ditt Quiz idag!</HomeTitle>
-
-      <main>
+      </div>
         <WeekDayContainer>
           <Link href="/?veckodag=Måndag" style={{textDecoration: "none" }}>
             <StyledWeekdayLink>Måndag</StyledWeekdayLink>
@@ -85,11 +85,9 @@ export default async function HomePage({ searchParams }: any) {
 
         <ButtonDiv>
         <Link href="/post-form">
-          <Button>Lägg till quiz</Button>
+          <Button>Lägg till nytt quiz</Button>
         </Link>
-
         </ButtonDiv>
       </main>
-    </div>
   );
 }

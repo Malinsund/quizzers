@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
-const PostSchema = z.object({
+export const PostCreateSchema = z.object({
     id: z.number(),
-    title: z.string(),
-    content: z.string().nullable(),
-    dayOfWeek: z.string().nullable(),
-    time: z.string().nullable(),
-    pubName: z.string().nullable(),
+    title: z.string().min(1),
+    content: z.string().min(10),
+    dayOfWeek: z.string(),
+    time: z.string(),
+    pubName: z.string().min(1),
 });
 
-export default PostSchema;
+export type PostCreate = z.infer<typeof PostCreateSchema>;

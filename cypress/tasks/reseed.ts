@@ -2,7 +2,9 @@ import { prisma } from "../../prisma/db";
 
 export async function reseed() {
     // NEVER ALLOW THIS OUTSIDE THE TEST ENVIROMENT!!!
-    if (process.env.NODE_ENV !== "test") return;
+    if (process.env.NODE_ENV !== "test") {
+        throw new Error("You can only reseed in test environment");
+    }
 
     // =============== RESET =============== //
 
