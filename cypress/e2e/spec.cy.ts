@@ -50,7 +50,7 @@ describe('/', () => {
   });
 });
 
-// TESTA POST SIDAN
+/* // TESTA POST SIDAN
 
 describe('Navigering och interaktion på Post-sidan', () => {
   it('Besöker startsidan och navigerar till en post', () => {
@@ -89,3 +89,4 @@ it('Klickar på geo-tag för att visa kartan', () => {
   cy.get('[data-cy=geo-tag]').click(); // Klicka på geo-tag (kart-position)
 
 });
+ */

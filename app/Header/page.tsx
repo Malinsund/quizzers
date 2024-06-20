@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import styled from "styled-components";
-import GlobalStyle from "../GlobalStyles";
+import GlobalStyle from "../styles/GlobalStyles";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -17,7 +17,6 @@ const HeaderContainer = styled.header`
 const MenuToggle = styled.div`
   font-size: 1.5rem;
   cursor: pointer;
-  
 `;
 
 /* #a66108 */
@@ -52,7 +51,7 @@ const StyledLink = styled.a`
   color: #ffffff;
   display: block;
   transition: 0.3s;
-  
+
   &:hover {
     color: #f1f1f1;
   }
@@ -74,11 +73,10 @@ const HeaderTitleContainer = styled.div`
 `;
 
 const HeaderTitle = styled.p`
-color: white;
-font-size: x-large;
-font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-margin: 0;
-
+  color: white;
+  font-size: x-large;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin: 0;
 `;
 
 export default function Header() {
@@ -94,8 +92,7 @@ export default function Header() {
       <HeaderContainer>
         <MenuToggle onClick={toggleMenu}>&#9776;</MenuToggle>
         <HeaderTitleContainer>
-
-        <HeaderTitle>Quizzers</HeaderTitle>
+          <HeaderTitle>Quizzers</HeaderTitle>
         </HeaderTitleContainer>
       </HeaderContainer>
       <SideMenu open={menuOpen}>
@@ -110,7 +107,6 @@ export default function Header() {
           <MenuItem>
             <StyledLink href="/">Alla quiz</StyledLink>
           </MenuItem>
-          
         </MenuList>
       </SideMenu>
     </>

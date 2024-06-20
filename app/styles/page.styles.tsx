@@ -1,50 +1,45 @@
-"use client"
+"use client";
 
 import styled from "styled-components";
 
 export const HomeTitle = styled.h1`
-text-align: center;
+  text-align: center;
 `;
 
 export const OuterDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  
-  `;
+`;
 
 export const PostDiv = styled.div`
   padding: 40px;
-  border:solid;
+  border: solid;
   border-radius: 20px;
   margin-bottom: 5px;
 `;
-export const PostTitle = styled.h2 `
-text-decoration: underline;
-margin-bottom: 2px;
-margin-top: 0;
+export const PostTitle = styled.h2`
+  text-decoration: underline;
+  margin-bottom: 2px;
+  margin-top: 0;
 `;
 
-export const PostContent = styled.p `
-background-color: #d3cdcd;
-padding: 3px;
-border-radius: 5px;
+export const PostContent = styled.p`
+  background-color: #d3cdcd;
+  padding: 3px;
+  border-radius: 5px;
 `;
 
 export const PostPubName = styled.p`
-font-weight: bold;
-margin-top: 0;
+  font-weight: bold;
+  margin-top: 0;
 `;
 
-
-
-export const PostTime = styled.span`
-
-`;
+export const PostTime = styled.span``;
 
 export const ButtonDiv = styled.div`
-display: flex;
-justify-content: center;
+  display: flex;
+  justify-content: center;
 `;
 
 export const Button = styled.button`
@@ -55,7 +50,6 @@ export const Button = styled.button`
   border-radius: 5px;
   color: white;
   cursor: pointer;
-
 `;
 
 export const WeekDayContainer = styled.div`

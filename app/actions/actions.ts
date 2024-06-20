@@ -1,14 +1,15 @@
 "use server";
 
-import { prisma } from "@/prisma/db";
 import { revalidatePath } from "next/cache";
-import { PostCreate, PostCreateSchema } from "../post-form/validations/postSchema";
+import { prisma } from "../../prisma/db";
+import { PostCreate, PostCreateSchema } from "../validations/post";
 
 export async function savePost(incomingData: PostCreate) {
     const postData = PostCreateSchema.parse(incomingData);
 
     const post = await prisma.post.create({
         data: {
+            id: postData.id,
             title: postData.title,
             content: postData.content,
             dayOfWeek: postData.dayOfWeek,
