@@ -19,11 +19,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         
-
        <GlobalStyle/>
         <Header />
         {children}
-
         
         </body>
     </html>

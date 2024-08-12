@@ -22,7 +22,7 @@ export const FormDiv = styled.div`
   justify-content: center;
 `;
 
-export const PostFormContainer = styled.form`
+export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   gap: 5px;

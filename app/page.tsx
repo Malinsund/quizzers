@@ -18,11 +18,20 @@ import {
   WeekDayContainer,
 } from "./styles/page.styles";
 
-export default async function HomePage({ searchParams }: any) {
-  console.log(searchParams.veckodag);
+async function fetchPosts(dayOfWeek: string | null) {
   const posts = await prisma.post.findMany({
-    where: { dayOfWeek: searchParams.veckodag },
+    where: dayOfWeek ? { dayOfWeek } : {},
   });
+  return posts;
+}
+
+export default async function HomePage({
+  searchParams,
+}: {
+  searchParams: { veckodag?: string };
+}) {
+  const dayOfWeek = searchParams.veckodag || null;
+  const posts = await fetchPosts(dayOfWeek);
 
   const formatDateTime = (dateTimeString: string | null) => {
     if (!dateTimeString) return "";
@@ -35,32 +44,28 @@ export default async function HomePage({ searchParams }: any) {
         <HomeTitle>Hitta ditt Quiz idag!</HomeTitle>
       </div>
       <WeekDayContainer>
-        <Link href="/?veckodag=Måndag" style={{ textDecoration: "none" }}>
-          <StyledWeekdayLink>Måndag</StyledWeekdayLink>
-        </Link>
-        <Link href="/?veckodag=Tisdag" style={{ textDecoration: "none" }}>
-          <StyledWeekdayLink>Tisdag</StyledWeekdayLink>
-        </Link>
-        <Link href="/?veckodag=Onsdag" style={{ textDecoration: "none" }}>
-          <StyledWeekdayLink>Onsdag</StyledWeekdayLink>
-        </Link>
-        <Link href="/?veckodag=Torsdag" style={{ textDecoration: "none" }}>
-          <StyledWeekdayLink>Torsdag</StyledWeekdayLink>
-        </Link>
-        <Link href="/?veckodag=Fredag" style={{ textDecoration: "none" }}>
-          <StyledWeekdayLink>Fredag</StyledWeekdayLink>
-        </Link>
-        <Link href="/?veckodag=Lördag" style={{ textDecoration: "none" }}>
-          <StyledWeekdayLink>Lördag</StyledWeekdayLink>
-        </Link>
-        <Link href="/?veckodag=Söndag" style={{ textDecoration: "none" }}>
-          <StyledWeekdayLink>Söndag</StyledWeekdayLink>
-        </Link>
+        {[
+          "Måndag",
+          "Tisdag",
+          "Onsdag",
+          "Torsdag",
+          "Fredag",
+          "Lördag",
+          "Söndag",
+        ].map((day) => (
+          <Link
+            key={day}
+            href={`/?veckodag=${day}`}
+            style={{ textDecoration: "none" }}
+          >
+            <StyledWeekdayLink>{day}</StyledWeekdayLink>
+          </Link>
+        ))}
       </WeekDayContainer>
 
       <DropdownContainer>
         <form method="get" action="/">
-          <DropdownSelect name="veckodag">
+          <DropdownSelect name="veckodag" defaultValue={dayOfWeek || ""}>
             <DropdownOption value="">Välj en dag</DropdownOption>
             <DropdownOption value="Måndag">Måndag</DropdownOption>
             <DropdownOption value="Tisdag">Tisdag</DropdownOption>
@@ -80,7 +85,6 @@ export default async function HomePage({ searchParams }: any) {
             <PostTitle>{post.title}</PostTitle>
             <PostPubName>På: {post.pubName}</PostPubName>
             <PostContent>{post.content}</PostContent>
-
             <PostTime>
               Datum: {post.dayOfWeek} - {formatDateTime(post.time)}
             </PostTime>
