@@ -15,10 +15,11 @@ export async function POST(request: Request) {
         dayOfWeek: postData.dayOfWeek,
         time: postData.time,
         pubName: postData.pubName,
+        website: postData.website, 
       },
     });
 
-    return NextResponse.json(post, { status: 201 });
+    return NextResponse.json(post, { status: 200 });
   } catch (error) {
     console.error('Error saving post:', error);
     return NextResponse.json({ error: 'Failed to save post' }, { status: 500 });

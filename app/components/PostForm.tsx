@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { handleSubmitForm } from "../actions/actions";
 import {
   FormContainer,
   FormInput,
@@ -20,29 +21,8 @@ export default function PostForm() {
     resolver: zodResolver(PostCreateSchema),
   });
 
-  const onSubmit = async (data: PostCreate) => {
-    try {
-      const response = await fetch("/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to submit form");
-      }
-
-      const result = await response.json();
-      console.log("Post saved successfully:", result);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-  };
-
   return (
-    <FormContainer onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer onSubmit={handleSubmit(handleSubmitForm)}>
       <FormInput {...register("title")} type="text" placeholder="Titel" />
       {errors.title && <span>{errors.title.message}</span>}
 
@@ -66,6 +46,13 @@ export default function PostForm() {
 
       <FormInput {...register("time")} type="time" />
       {errors.time && <span>{errors.time.message}</span>}
+
+      <FormInput
+        {...register("website")}
+        type="url"
+        placeholder="Länk till hemsidan"
+      />
+      {errors.website && <span>{errors.website.message}</span>}
 
       <FormSubmitButton type="submit">Lägg till</FormSubmitButton>
     </FormContainer>

@@ -10,6 +10,7 @@ async function main() {
             dayOfWeek: 'Måndag',
             pubName: 'Lé pub',
             time: '2023-06-24T18:30',
+            website: 'https://example.com',
             published: true,
         },
         {
@@ -19,6 +20,7 @@ async function main() {
             dayOfWeek: 'Onsdag',
             pubName: 'Sejdeln',
             time: '2023-06-26T19:00',
+            website: 'https://example.com',
             published: true,
         },
         {
@@ -28,6 +30,7 @@ async function main() {
             dayOfWeek: 'Onsdag',
             pubName: 'Jerntorgets Brygghus',
             time: '2023-06-26T19:30',
+            website: 'https://example.com',
             published: true,
         },
 

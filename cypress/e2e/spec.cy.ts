@@ -5,6 +5,87 @@ describe('template spec', () => {
   })
 })
 
+describe('Post Form', () => {
+  beforeEach(() => {
+    cy.visit('/post-form'); // Besök sidan med formuläret
+  });
+
+  it('should display form elements correctly', () => {
+    cy.get('input[name="title"]').should('exist');
+    cy.get('input[name="pubName"]').should('exist');
+    cy.get('textarea[name="content"]').should('exist');
+    cy.get('select[name="dayOfWeek"]').should('exist');
+    cy.get('input[name="time"]').should('exist');
+    cy.get('input[name="website"]').should('exist'); 
+    cy.get('button[type="submit"]').contains('Lägg till');
+  });
+
+  it('should submit the form successfully', () => {
+    cy.intercept('POST', '/api/posts').as('postRequest');
+
+    cy.get('input[name="title"]').type('Test Title');
+    cy.get('input[name="pubName"]').type('Test Pub');
+    cy.get('textarea[name="content"]').type('Test content');
+    cy.get('select[name="dayOfWeek"]').select('Måndag');
+    cy.get('input[name="time"]').type('12:00');
+    cy.get('input[name="website"]').type('https://example.com'); 
+    cy.get('button[type="submit"]').click();
+
+    cy.wait('@postRequest', { timeout:10000 }).its('response.statusCode').should('eq', 200);
+    cy.url().should('eq', Cypress.config().baseUrl + '/');
+  });
+
+  it('should show validation errors', () => {
+    cy.get('button[type="submit"]').click();
+
+    cy.get('span').contains('Du måste fylla i en titel');
+      cy.get('span').contains('Du måste fylla i ett pubnamn');
+      cy.get('span').contains('Du måste fylla i en beskrivning');
+  });
+});
+
+
+describe('Post Form and Day Navigation', () => {
+  beforeEach(() => {
+    cy.task("reseed"); // Återställ databasen innan varje test
+  });
+
+  it('should create posts for different days and display them correctly', () => {
+    // Skapa inlägg för varje dag i veckan
+    const daysOfWeek = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
+    
+    daysOfWeek.forEach(day => {
+      cy.visit('/post-form'); // Besök formuläret
+
+      // Fyll i formuläret
+      cy.get('input[name="title"]').type(`Test Title for ${day}`);
+      cy.get('input[name="pubName"]').type('Test Pub');
+      cy.get('textarea[name="content"]').type('Test content');
+      cy.get('select[name="dayOfWeek"]').select(day);
+      cy.get('input[name="time"]').type('12:00');
+      cy.get('input[name="website"]').type('https://example.com');
+
+      // Skicka formuläret
+      cy.get('button[type="submit"]').click();
+    });
+
+    // Kontrollera att varje dag visar rätt inlägg
+    daysOfWeek.forEach(day => {
+      cy.visit('/?veckodag=' + encodeURIComponent(day)); // Besök sidan för den specifika dagen
+
+      // Verifiera att inlägget för den dagen är närvarande
+      cy.contains(`Test Title for ${day}`).should('exist');
+      cy.contains('Test Pub').should('exist');
+      cy.contains('Test content').should('exist');
+      
+    });
+  });
+});
+
+
+
+
+/* 
 
 describe('/', () => {
   let quizDate: any;
@@ -48,7 +129,7 @@ describe('/', () => {
     cy.visit('/');
     cy.contains('Världens bästa quiz').should('not.exist');
   });
-});
+}); */
 
 /* // TESTA POST SIDAN
 

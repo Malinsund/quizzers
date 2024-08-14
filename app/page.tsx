@@ -88,6 +88,7 @@ export default async function HomePage({
             <PostTime>
               Datum: {post.dayOfWeek} - {formatDateTime(post.time)}
             </PostTime>
+            <PostContent>{post.website}</PostContent>
           </PostDiv>
         ))}
       </OuterDiv>
