@@ -82,13 +82,13 @@ export const StyledWeekdayLink = styled.span`
 `;
 
 export const DropdownContainer = styled.div`
-  display: none;
+  display: flex;
   justify-content: center;
   margin-bottom: 20px;
   text-align: center;
 
-  @media (max-width: 768px) {
-    display: flex;
+  @media (min-width: 768px) {
+    display: none;
   }
 `;
 
@@ -98,7 +98,7 @@ export const DropdownSelect = styled.select`
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-right: 10px;
-  appearance: none; /* Removes default arrow icon */
+  appearance: none;
 `;
 
 export const DropdownOption = styled.option`

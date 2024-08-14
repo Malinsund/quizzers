@@ -102,13 +102,10 @@ export default function Header() {
             <StyledLink href="/">Hem</StyledLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink href="/post-form">Lägg till nytt quiz</StyledLink>
+            <StyledLink href="/post-form">Lägg till quiz-event</StyledLink>
           </MenuItem>
           <MenuItem>
-            <StyledLink href="/">Alla quiz</StyledLink>
-          </MenuItem>
-          <MenuItem>
-            <StyledLink href="/quiz">Quiz</StyledLink>
+            <StyledLink href="/quiz">Quizza</StyledLink>
           </MenuItem>
         </MenuList>
       </SideMenu>
