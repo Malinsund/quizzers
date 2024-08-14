@@ -33,3 +33,16 @@ export const Result = styled.p`
   font-size: 1.2rem;
   font-weight: bold;
 `;
+
+export const NameInput = styled.input`
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 16px;
+  width: 100%;
+`;
+
+export const SaveNameButton = styled.button`
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+`;

@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Scoreboard from "../components/Scoreboard";
 import { QuizContainer, QuizOption, QuizTitle } from "../styles/QuizStyles";
 
 export default function QuizPage() {
@@ -16,6 +17,7 @@ export default function QuizPage() {
           Quiz 2: Film och TV 🎬
         </Link>
       </QuizOption>
+      <Scoreboard />
     </QuizContainer>
   );
 }

@@ -1,12 +1,15 @@
 "use client";
 
 import {
+  NameInput,
   OptionButton,
   QuestionTitle,
   QuizContainer,
   Result,
+  SaveNameButton,
 } from "@/app/styles/QuizStyles";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function Quiz2() {
   const questions = [
@@ -92,6 +95,19 @@ export default function Quiz2() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
+  const { push } = useRouter();
+  const [username, setUsername] = useState("");
+  const [scoreboard, setScoreboard] = useState<
+    { username: string; score: number }[]
+  >([]);
+
+  useEffect(() => {
+    // Hämta tidigare sparade resultat från localStorage
+    const savedScores = localStorage.getItem("scoreboard");
+    if (savedScores) {
+      setScoreboard(JSON.parse(savedScores));
+    }
+  }, []);
 
   const handleAnswer = (answer: string) => {
     if (answer === questions[currentQuestion].correctAnswer) {
@@ -104,6 +120,14 @@ export default function Quiz2() {
     } else {
       setShowResult(true);
     }
+  };
+  const handleSaveScore = () => {
+    const newScoreboard = [...scoreboard, { username, score }];
+    newScoreboard.sort((a, b) => b.score - a.score); // Sortera poängen
+    setScoreboard(newScoreboard);
+    localStorage.setItem("scoreboard", JSON.stringify(newScoreboard));
+    setUsername(""); // Rensa namninput
+    push("/quiz");
   };
 
   return (
@@ -120,6 +144,17 @@ export default function Quiz2() {
       ) : (
         <Result>
           Du fick {score} av {questions.length} rätt!
+          <div>
+            <NameInput
+              type="text"
+              placeholder="Skriv ditt namn"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <SaveNameButton onClick={handleSaveScore}>
+              Spara resultat
+            </SaveNameButton>
+          </div>
         </Result>
       )}
     </QuizContainer>

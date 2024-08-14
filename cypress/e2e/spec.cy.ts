@@ -5,8 +5,6 @@ describe('template spec', () => {
   })
 })
 
-
-
 describe('Post Form', () => {
   beforeEach(() => {
     cy.visit('/post-form'); // Besök sidan med formuläret
@@ -168,7 +166,7 @@ describe('Post Details Page', () => {
     cy.contains('Springfield').should('not.exist');
   });
 });
-
+/* 
 describe('Quiz Functionality', () => {
   it('Should navigate to the Quiz selection page', () => {
     cy.visit('/quiz');
@@ -218,78 +216,126 @@ describe('Quiz Functionality', () => {
     cy.contains('Vad heter den största galaxen som hittills skådats?');
     cy.contains('Alcyoneus').click();
 // Fråga 9
-
     cy.contains('Vilket land har flest invånare per kvm?');
     cy.contains('Monaco').click();
 
-    // Kontrollera att resultatet visas korrekt
+    // Kontrollera att resultatet visas
     cy.contains('Du fick 9 av 9 rätt!');
-  });
-});
-
-
-
-
-/* 
-
-describe('/', () => {
-  let quizDate: any;
-
-  beforeEach(() => {
-    cy.task('reseed');
-    cy.visit('/');
-  });
-
-  it('adds a new quiz and verifies it', () => {
-    // Klicka på knappen för att lägga till quiz!
-    cy.contains('Lägg till nytt quiz').click({ force: true });
-
-    // Fyll i formuläret
-    cy.url().should('include', '/post-form');
-    cy.get('#pubName').type('The Pub');
-    cy.get('#title').type('Världens bästa quiz');
-    cy.get('#content').type('Ett fantastiskt allmänquiz');
-    cy.get('#day').select('Måndag');
-    cy.get('#time').type('2023-06-24T18:30');
-
-    // Skicka in formuläret
-    cy.get('form').submit();
-    cy.contains('Ditt quiz har blivit tillagt').should('be.visible');
-
-    // Gå tillbaka till Posts-sidan och kolla så det finns där
-    cy.visit('/');
-    cy.contains('Världens bästa quiz').should('be.visible');
-
-    cy.contains('Måndag').click();
-    cy.contains('Världens bästa quiz').should('be.visible');
-    cy.get('[data-cy=post-time]').invoke('text').then((text) => {
-      quizDate = new Date(text);
-    });
-  });
-
-  it('verifies quiz disappears after passing date', () => {
-    // Manipulera klockan 
-    cy.clock(quizDate.getTime() + 24 * 60 * 60 * 1000);
-
-    cy.visit('/');
-    cy.contains('Världens bästa quiz').should('not.exist');
   });
 }); */
 
+describe('Quiz Functionality', () => {
+  beforeEach(() => {
+    cy.visit('/quiz');
+  });
 
+  it('Should navigate to the Quiz selection page', () => {
+    cy.url().should('include', '/quiz');
+    cy.contains('Quiz 1: Allmänbildning 📚');
+    cy.contains('Quiz 2: Film och TV 🎬');
+  });
 
-/* 
-it('Klickar på knappen "Lägg till i kalender" och verifierar kalenderhändelse', () => {
-  cy.get('[data-cy=add-to-calendar-btn]').click(); //ska gå att lägga till i kalender helst
+  it('Should navigate to Quiz 1, answer all questions, and show the result', () => {
+    cy.contains('Quiz 1: Allmänbildning 📚').click();
+    cy.url().should('include', '/quiz/quiz1');
+
+    
+    cy.contains('Vilket år började andra världskriget?').parent().find('button').contains('1939').click();
+
+    cy.contains('Vem skrev \'Till havs\'?').parent().find('button').contains('Evert Taube').click();
+
+    cy.contains('Vilken är världens längsta flod?').parent().find('button').contains('Nilen').click();
+
+    cy.contains('Vilket land uppfann osthyveln?').parent().find('button').contains('Norge').click();
+
+    cy.contains('Matematiska namnet på att lägga ihop något?').parent().find('button').contains('Addera').click();
+
+    cy.contains('Med vilken låt vann ABBA euorovision 1974?').parent().find('button').contains('Waterloo').click();
+
+    cy.contains('Vilken är Sveriges näst största stad?').parent().find('button').contains('Göteborg').click();
+
+    cy.contains('Vad heter den största galaxen som hittills skådats?').parent().find('button').contains('Alcyoneus').click();
+
+    cy.contains('Vilket land har flest invånare per kvm?').parent().find('button').contains('Monaco').click();
+
+    cy.contains('Du fick 9 av 9 rätt!').should('be.visible');
+    
+    // Spara resultat
+    cy.get('input[placeholder="Skriv ditt namn"]').type('Test User');
+    cy.contains('Spara resultat').click();
+
+    // navigera tillbaka till poängbrädet
+    cy.url().should('include', '/quiz');
+
+    // Spara skiten i LS
+    cy.window().then((win) => {
+      const scoreboard = JSON.parse(win.localStorage.getItem('scoreboard') || '[]');
+      expect(scoreboard).to.have.length.greaterThan(0);
+      expect(scoreboard[0]).to.have.property('username', 'Test User');
+    });
+  });
+
+  it('Should sort scores in scoreboard', () => {
+    cy.contains('Quiz 1: Allmänbildning 📚').click();
+    cy.url().should('include', '/quiz/quiz1');
+
+    // Gör tester för första användaren "Förlorare"
+    cy.contains('Vilket år började andra världskriget?').parent().find('button').contains('1939').click();
+
+    cy.contains('Vem skrev \'Till havs\'?').parent().find('button').contains('Evert Taube').click();
+
+    cy.contains('Vilken är världens längsta flod?').parent().find('button').contains('Nilen').click();
+
+    cy.contains('Vilket land uppfann osthyveln?').parent().find('button').contains('Norge').click();
+
+    cy.contains('Matematiska namnet på att lägga ihop något?').parent().find('button').contains('Addera').click();
+
+    cy.contains('Med vilken låt vann ABBA euorovision 1974?').parent().find('button').contains('Waterloo').click();
+
+    // Väljer ett felaktigt svar
+    cy.contains('Vilken är Sveriges näst största stad?').parent().find('button').contains('Stockholm').click();
+
+    cy.contains('Vad heter den största galaxen som hittills skådats?').parent().find('button').contains('Alcyoneus').click();
+
+    cy.contains('Vilket land har flest invånare per kvm?').parent().find('button').contains('Monaco').click();
+
+    cy.get('input[placeholder="Skriv ditt namn"]').type('Förlorare');
+    cy.contains('Spara resultat').click();
+
+    // Nästa användare Vinnaren
+    cy.contains('Quiz 1: Allmänbildning 📚').click();
+    cy.url().should('include', '/quiz/quiz1');
+
+    cy.contains('Vilket år började andra världskriget?').parent().find('button').contains('1939').click();
+
+    cy.contains('Vem skrev \'Till havs\'?').parent().find('button').contains('Evert Taube').click();
+
+    cy.contains('Vilken är världens längsta flod?').parent().find('button').contains('Nilen').click();
+
+    cy.contains('Vilket land uppfann osthyveln?').parent().find('button').contains('Norge').click();
+
+    cy.contains('Matematiska namnet på att lägga ihop något?').parent().find('button').contains('Addera').click();
+
+    cy.contains('Med vilken låt vann ABBA euorovision 1974?').parent().find('button').contains('Waterloo').click();
+
+    cy.contains('Vilken är Sveriges näst största stad?').parent().find('button').contains('Göteborg').click();
+
+    cy.contains('Vad heter den största galaxen som hittills skådats?').parent().find('button').contains('Alcyoneus').click();
+
+    cy.contains('Vilket land har flest invånare per kvm?').parent().find('button').contains('Monaco').click();
+
+    cy.get('input[placeholder="Skriv ditt namn"]').type('Vinnaren');
+    cy.contains('Spara resultat').click();
+
+    // navigerar tillbaka till sidan där man ser poängen
+    cy.url().should('include', '/quiz');
+
+    // kolla så att den sorterar efter poäng
+    cy.window().then((win) => {
+      const scoreboard = JSON.parse(win.localStorage.getItem('scoreboard') || '[]');
+      expect(scoreboard[0].username).to.equal('Vinnaren');
+      expect(scoreboard[1].username).to.equal('Förlorare');
+    });
+  });
 });
 
-it('Navigerar tillbaka till post-sidan efter kalendertillägg', () => {
-  cy.go('back');
-  cy.url().should('include', '/post/');
-});
-
-it('Klickar på geo-tag för att visa kartan', () => {
-  cy.get('[data-cy=geo-tag]').click(); // Klicka på geo-tag (kart-position)
-
-});
-  */
