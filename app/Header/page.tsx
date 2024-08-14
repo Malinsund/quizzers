@@ -107,6 +107,9 @@ export default function Header() {
           <MenuItem>
             <StyledLink href="/">Alla quiz</StyledLink>
           </MenuItem>
+          <MenuItem>
+            <StyledLink href="/quiz">Quiz</StyledLink>
+          </MenuItem>
         </MenuList>
       </SideMenu>
     </>

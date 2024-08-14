@@ -10,6 +10,8 @@ export const OuterDiv = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  cursor: pointer;
+  text-decoration: none;
 `;
 
 export const PostDiv = styled.div`
@@ -17,22 +19,27 @@ export const PostDiv = styled.div`
   border: solid;
   border-radius: 20px;
   margin-bottom: 5px;
+  text-decoration: none;
 `;
+
 export const PostTitle = styled.h2`
   text-decoration: underline;
   margin-bottom: 2px;
   margin-top: 0;
+  text-decoration: none;
 `;
 
 export const PostContent = styled.p`
   background-color: #d3cdcd;
   padding: 3px;
   border-radius: 5px;
+  text-decoration: none;
 `;
 
 export const PostPubName = styled.p`
   font-weight: bold;
   margin-top: 0;
+  text-decoration: none;
 `;
 
 export const PostTime = styled.span``;

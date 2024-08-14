@@ -81,15 +81,22 @@ export default async function HomePage({
 
       <OuterDiv>
         {posts.map((post) => (
-          <PostDiv key={post.id}>
-            <PostTitle>{post.title}</PostTitle>
-            <PostPubName>På: {post.pubName}</PostPubName>
-            <PostContent>{post.content}</PostContent>
-            <PostTime>
-              Datum: {post.dayOfWeek} - {formatDateTime(post.time)}
-            </PostTime>
-            <PostContent>{post.website}</PostContent>
-          </PostDiv>
+          <Link
+            style={{ textDecoration: "none" }}
+            key={post.id}
+            href={`/posts/${post.id}`}
+            passHref
+          >
+            <PostDiv key={post.id}>
+              <PostTitle>{post.title}</PostTitle>
+              <PostPubName>På: {post.pubName}</PostPubName>
+              <PostContent>{post.content}</PostContent>
+              <PostTime>
+                Datum: {post.dayOfWeek} - {formatDateTime(post.time)}
+              </PostTime>
+              <PostContent>{post.website}</PostContent>
+            </PostDiv>
+          </Link>
         ))}
       </OuterDiv>
 
