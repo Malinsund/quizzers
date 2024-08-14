@@ -6,6 +6,7 @@ describe('template spec', () => {
 })
 
 
+
 describe('Post Form', () => {
   beforeEach(() => {
     cy.visit('/post-form'); // Besök sidan med formuläret
@@ -45,20 +46,54 @@ describe('Post Form', () => {
   });
 });
 
+describe('Post Visibility on Homepage', () => {
+  beforeEach(() => {
+    cy.task("reseed"); 
+  });
+
+  it('should create posts on different days and display them on the homepage', () => {
+    cy.visit('/post-form'); 
+    cy.get('input[name="title"]').type('Inlägg för Måndag');
+    cy.get('input[name="pubName"]').type('Test Pub 1');
+    cy.get('textarea[name="content"]').type('Innehåll för Måndag');
+    cy.get('select[name="dayOfWeek"]').select('Måndag');
+    cy.get('input[name="time"]').type('09:00');
+    cy.get('input[name="website"]').type('https://example.com');
+    cy.get('button[type="submit"]').click();
+
+ 
+    cy.visit('/post-form'); 
+    cy.get('input[name="title"]').type('Inlägg för Tisdag');
+    cy.get('input[name="pubName"]').type('Test Pub 2');
+    cy.get('textarea[name="content"]').type('Innehåll för Tisdag');
+    cy.get('select[name="dayOfWeek"]').select('Tisdag');
+    cy.get('input[name="time"]').type('10:00');
+    cy.get('input[name="website"]').type('https://anotherexample.com');
+    cy.get('button[type="submit"]').click();
+
+   
+    cy.visit('/'); 
+
+    cy.contains('Inlägg för Måndag').should('exist');
+    cy.contains('Innehåll för Måndag').should('exist');
+    cy.contains('Inlägg för Tisdag').should('exist');
+    cy.contains('Innehåll för Tisdag').should('exist');
+  });
+});
+
 
 describe('Post Form and Day Navigation', () => {
   beforeEach(() => {
-    cy.task("reseed"); // Återställ databasen innan varje test
+    cy.task("reseed"); 
   });
 
   it('should create posts for different days and display them correctly', () => {
-    // Skapa inlägg för varje dag i veckan
+  // Array för alla dagar som den skall gå igenom.
     const daysOfWeek = ["Måndag", "Tisdag", "Onsdag", "Torsdag", "Fredag", "Lördag", "Söndag"];
     
     daysOfWeek.forEach(day => {
-      cy.visit('/post-form'); // Besök formuläret
+      cy.visit('/post-form'); 
 
-      // Fyll i formuläret
       cy.get('input[name="title"]').type(`Test Title for ${day}`);
       cy.get('input[name="pubName"]').type('Test Pub');
       cy.get('textarea[name="content"]').type('Test content');
@@ -66,15 +101,13 @@ describe('Post Form and Day Navigation', () => {
       cy.get('input[name="time"]').type('12:00');
       cy.get('input[name="website"]').type('https://example.com');
 
-      // Skicka formuläret
       cy.get('button[type="submit"]').click();
     });
 
-    // Kontrollera att varje dag visar rätt inlägg
+    // Gå igenom alla dagar från arrayen 
     daysOfWeek.forEach(day => {
-      cy.visit('/?veckodag=' + encodeURIComponent(day)); // Besök sidan för den specifika dagen
+      cy.visit('/?veckodag=' + encodeURIComponent(day)); 
 
-      // Verifiera att inlägget för den dagen är närvarande
       cy.contains(`Test Title for ${day}`).should('exist');
       cy.contains('Test Pub').should('exist');
       cy.contains('Test content').should('exist');
@@ -83,7 +116,7 @@ describe('Post Form and Day Navigation', () => {
   });
 });
 
-// testa post-sidan och att inte andra posts visas
+// testa PostPage och att inte andra posts visas
 describe('Post Details Page', () => {
   beforeEach(() => {
     cy.task("reseed"); 
@@ -111,7 +144,7 @@ describe('Post Details Page', () => {
   });
 
   it('should not display other posts on the post details page', () => {
-    // Skapa ytterligare ett inlägg
+    // skapa inlägg
     cy.visit('/post-form');
     cy.get('input[name="title"]').type('The Simpsons');
     cy.get('input[name="pubName"]').type('Another Pub');
@@ -121,7 +154,7 @@ describe('Post Details Page', () => {
     cy.get('input[name="website"]').type('https://anotherexample.com');
     cy.get('button[type="submit"]').click();
 
-    // Navigera till den första postens sida
+    // Gå till inlägget
     cy.contains('Kalle Anka').click();
 
     // kolla så att bara den första posten visas och inte den andra
@@ -138,7 +171,6 @@ describe('Post Details Page', () => {
 
 describe('Quiz Functionality', () => {
   it('Should navigate to the Quiz selection page', () => {
-    // Besök hemsidan
     cy.visit('/quiz');
 
     cy.url().should('include', '/quiz');
@@ -147,39 +179,45 @@ describe('Quiz Functionality', () => {
   });
 
   it('Should navigate to Quiz 1, answer all questions, and show the result', () => {
-    // Besök Quiz-sidan direkt
     cy.visit('/quiz');
 
-    // Klicka på "Quiz 1: Allmänbildning"
     cy.contains('Quiz 1: Allmänbildning 📚').click();
 
-    // Kontrollera att vi är på rätt quizsida
     cy.url().should('include', '/quiz/quiz1');
 
-    // Svara på alla frågor
+    // Fråga 1
     cy.contains('Vilket år började andra världskriget?');
     cy.contains('1939').click();
 
+    // Fråga 2
     cy.contains('Vem skrev \'Till havs\'?');
     cy.contains('Evert Taube').click();
 
+    // Fråga 3
     cy.contains('Vilken är världens längsta flod?');
     cy.contains('Nilen').click();
 
+// Fråga 4
     cy.contains('Vilket land uppfann osthyveln?');
     cy.contains('Norge').click();
 
+// Fråga 5
     cy.contains('Matematiska namnet på att lägga ihop något?');
     cy.contains('Addera').click();
 
+// Fråga 6
     cy.contains('Med vilken låt vann ABBA euorovision 1974?');
     cy.contains('Waterloo').click();
 
+// Fråga 7
     cy.contains('Vilken är Sveriges näst största stad?');
     cy.contains('Göteborg').click();
 
+// Fråga 8
+
     cy.contains('Vad heter den största galaxen som hittills skådats?');
     cy.contains('Alcyoneus').click();
+// Fråga 9
 
     cy.contains('Vilket land har flest invånare per kvm?');
     cy.contains('Monaco').click();
