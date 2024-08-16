@@ -15,7 +15,6 @@ export async function handleSubmitForm(data: any) {
     const result = await response.json();
     console.log("Post saved successfully:", result);
 
-    // Redirect to the homepage after successful form submission
     window.location.href = "/";
   } catch (error) {
     console.error("Error submitting form:", error);

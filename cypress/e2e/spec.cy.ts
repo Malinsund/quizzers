@@ -7,7 +7,7 @@ describe('template spec', () => {
 
 describe('Post Form', () => {
   beforeEach(() => {
-    cy.visit('/post-form'); // Besök sidan med formuläret
+    cy.visit('/post-form'); 
   });
 
   it('should display form elements correctly', () => {
@@ -166,63 +166,7 @@ describe('Post Details Page', () => {
     cy.contains('Springfield').should('not.exist');
   });
 });
-/* 
-describe('Quiz Functionality', () => {
-  it('Should navigate to the Quiz selection page', () => {
-    cy.visit('/quiz');
 
-    cy.url().should('include', '/quiz');
-    cy.contains('Quiz 1: Allmänbildning 📚');
-    cy.contains('Quiz 2: Film och TV 🎬');
-  });
-
-  it('Should navigate to Quiz 1, answer all questions, and show the result', () => {
-    cy.visit('/quiz');
-
-    cy.contains('Quiz 1: Allmänbildning 📚').click();
-
-    cy.url().should('include', '/quiz/quiz1');
-
-    // Fråga 1
-    cy.contains('Vilket år började andra världskriget?');
-    cy.contains('1939').click();
-
-    // Fråga 2
-    cy.contains('Vem skrev \'Till havs\'?');
-    cy.contains('Evert Taube').click();
-
-    // Fråga 3
-    cy.contains('Vilken är världens längsta flod?');
-    cy.contains('Nilen').click();
-
-// Fråga 4
-    cy.contains('Vilket land uppfann osthyveln?');
-    cy.contains('Norge').click();
-
-// Fråga 5
-    cy.contains('Matematiska namnet på att lägga ihop något?');
-    cy.contains('Addera').click();
-
-// Fråga 6
-    cy.contains('Med vilken låt vann ABBA euorovision 1974?');
-    cy.contains('Waterloo').click();
-
-// Fråga 7
-    cy.contains('Vilken är Sveriges näst största stad?');
-    cy.contains('Göteborg').click();
-
-// Fråga 8
-
-    cy.contains('Vad heter den största galaxen som hittills skådats?');
-    cy.contains('Alcyoneus').click();
-// Fråga 9
-    cy.contains('Vilket land har flest invånare per kvm?');
-    cy.contains('Monaco').click();
-
-    // Kontrollera att resultatet visas
-    cy.contains('Du fick 9 av 9 rätt!');
-  });
-}); */
 
 describe('Quiz Functionality', () => {
   beforeEach(() => {
@@ -239,23 +183,23 @@ describe('Quiz Functionality', () => {
     cy.contains('Quiz 1: Allmänbildning 📚').click();
     cy.url().should('include', '/quiz/quiz1');
 
-    
+    // Fråga 1
     cy.contains('Vilket år började andra världskriget?').parent().find('button').contains('1939').click();
-
+// Fråga 2
     cy.contains('Vem skrev \'Till havs\'?').parent().find('button').contains('Evert Taube').click();
-
+// Fråga 3
     cy.contains('Vilken är världens längsta flod?').parent().find('button').contains('Nilen').click();
-
+// Fråga 4
     cy.contains('Vilket land uppfann osthyveln?').parent().find('button').contains('Norge').click();
-
+// Fråga 5
     cy.contains('Matematiska namnet på att lägga ihop något?').parent().find('button').contains('Addera').click();
-
+// Fråga 6
     cy.contains('Med vilken låt vann ABBA euorovision 1974?').parent().find('button').contains('Waterloo').click();
-
+// Fråga 7
     cy.contains('Vilken är Sveriges näst största stad?').parent().find('button').contains('Göteborg').click();
-
+// Fråga 8
     cy.contains('Vad heter den största galaxen som hittills skådats?').parent().find('button').contains('Alcyoneus').click();
-
+// Fråga 9
     cy.contains('Vilket land har flest invånare per kvm?').parent().find('button').contains('Monaco').click();
 
     cy.contains('Du fick 9 av 9 rätt!').should('be.visible');
@@ -280,23 +224,24 @@ describe('Quiz Functionality', () => {
     cy.url().should('include', '/quiz/quiz1');
 
     // Gör tester för första användaren "Förlorare"
+    // Fråga1
     cy.contains('Vilket år började andra världskriget?').parent().find('button').contains('1939').click();
-
+//fråga 2
     cy.contains('Vem skrev \'Till havs\'?').parent().find('button').contains('Evert Taube').click();
-
+// Fråga 3
     cy.contains('Vilken är världens längsta flod?').parent().find('button').contains('Nilen').click();
-
+// Fråga 4
     cy.contains('Vilket land uppfann osthyveln?').parent().find('button').contains('Norge').click();
-
+// Fråga 5
     cy.contains('Matematiska namnet på att lägga ihop något?').parent().find('button').contains('Addera').click();
-
+// Fråga 6
     cy.contains('Med vilken låt vann ABBA euorovision 1974?').parent().find('button').contains('Waterloo').click();
 
-    // Väljer ett felaktigt svar
+    // Fråga 7 väljer ett felaktigt svar
     cy.contains('Vilken är Sveriges näst största stad?').parent().find('button').contains('Stockholm').click();
-
+// Fråga 8
     cy.contains('Vad heter den största galaxen som hittills skådats?').parent().find('button').contains('Alcyoneus').click();
-
+// Fråga 9
     cy.contains('Vilket land har flest invånare per kvm?').parent().find('button').contains('Monaco').click();
 
     cy.get('input[placeholder="Skriv ditt namn"]').type('Förlorare');
@@ -305,23 +250,14 @@ describe('Quiz Functionality', () => {
     // Nästa användare Vinnaren
     cy.contains('Quiz 1: Allmänbildning 📚').click();
     cy.url().should('include', '/quiz/quiz1');
-
     cy.contains('Vilket år började andra världskriget?').parent().find('button').contains('1939').click();
-
     cy.contains('Vem skrev \'Till havs\'?').parent().find('button').contains('Evert Taube').click();
-
     cy.contains('Vilken är världens längsta flod?').parent().find('button').contains('Nilen').click();
-
     cy.contains('Vilket land uppfann osthyveln?').parent().find('button').contains('Norge').click();
-
     cy.contains('Matematiska namnet på att lägga ihop något?').parent().find('button').contains('Addera').click();
-
     cy.contains('Med vilken låt vann ABBA euorovision 1974?').parent().find('button').contains('Waterloo').click();
-
     cy.contains('Vilken är Sveriges näst största stad?').parent().find('button').contains('Göteborg').click();
-
     cy.contains('Vad heter den största galaxen som hittills skådats?').parent().find('button').contains('Alcyoneus').click();
-
     cy.contains('Vilket land har flest invånare per kvm?').parent().find('button').contains('Monaco').click();
 
     cy.get('input[placeholder="Skriv ditt namn"]').type('Vinnaren');

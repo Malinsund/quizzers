@@ -19,8 +19,6 @@ const MenuToggle = styled.div`
   cursor: pointer;
 `;
 
-/* #a66108 */
-
 const SideMenu = styled.nav<{ open: boolean }>`
   height: 100%;
   width: ${({ open }) => (open ? "250px" : "0")};

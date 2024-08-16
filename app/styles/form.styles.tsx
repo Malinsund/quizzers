@@ -20,17 +20,21 @@ export const TitleLineTwo = styled.hr`
 export const FormDiv = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 `;
 
 export const FormContainer = styled.form`
   display: flex;
+  justify-content: center;
   flex-direction: column;
   gap: 5px;
+  width: 80%;
+  max-width: 400px;
 `;
 
 export const FormInput = styled.input`
   display: flex;
-  width: 300px;
+
   height: 30px;
   background-color: #ebe9e8;
   border-radius: 5px;

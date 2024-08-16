@@ -102,7 +102,6 @@ export default function Quiz2() {
   >([]);
 
   useEffect(() => {
-    // Hämta tidigare sparade resultat från localStorage
     const savedScores = localStorage.getItem("scoreboard");
     if (savedScores) {
       setScoreboard(JSON.parse(savedScores));
@@ -123,10 +122,10 @@ export default function Quiz2() {
   };
   const handleSaveScore = () => {
     const newScoreboard = [...scoreboard, { username, score }];
-    newScoreboard.sort((a, b) => b.score - a.score); // Sortera poängen
+    newScoreboard.sort((a, b) => b.score - a.score);
     setScoreboard(newScoreboard);
     localStorage.setItem("scoreboard", JSON.stringify(newScoreboard));
-    setUsername(""); // Rensa namninput
+    setUsername("");
     push("/quiz");
   };
 

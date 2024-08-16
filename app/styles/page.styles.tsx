@@ -20,6 +20,7 @@ export const PostDiv = styled.div`
   border-radius: 20px;
   margin-bottom: 5px;
   text-decoration: none;
+  color: black;
 `;
 
 export const PostTitle = styled.h2`
@@ -30,7 +31,6 @@ export const PostTitle = styled.h2`
 `;
 
 export const PostContent = styled.p`
-  background-color: #d3cdcd;
   padding: 3px;
   border-radius: 5px;
   text-decoration: none;

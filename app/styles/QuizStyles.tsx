@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const QuizContainer = styled.div`
   padding: 2rem;
-  text-align: center;
+  width: 40rem;
 `;
 
 export const QuizTitle = styled.h1`
@@ -11,6 +11,7 @@ export const QuizTitle = styled.h1`
 `;
 
 export const QuizOption = styled.div`
+  display: flex;
   margin: 1rem 0;
   font-size: 1.5rem;
 `;
@@ -46,3 +47,9 @@ export const SaveNameButton = styled.button`
   font-size: 16px;
   cursor: pointer;
 `;
+
+export const ScoreboardList = styled.li`
+  list-style: none;
+`;
+
+export const ScoreboardDiv = styled.div``;
